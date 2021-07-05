@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: json-reverser
+  namespace: signavio
+spec:
+  selector:
+    matchLabels:
+      app: json-reverser
+  template:
+    metadata:
+      labels:
+        app: json-reverser
+    spec:
+      containers:
+      - name: json-reverser
+        image: json-reverser
+        imagePullPolicy: IfNotPresent
+        securityContext:
+          privileged: false
+        ports:
+          - containerPort: 8080

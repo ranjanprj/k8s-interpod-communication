@@ -1,0 +1,17 @@
+apiVersion: networking.k8s.io/v1beta1
+kind: Ingress
+metadata:
+  name: json-server-ingress
+  namespace: signavio
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
+spec:
+  rules:
+  - host: message.reverser
+    http:
+      paths:
+      - path: /message
+        pathType: Prefix
+        backend:
+          serviceName: json-server
+          servicePort: 8080

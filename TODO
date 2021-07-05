@@ -1,0 +1,56 @@
+#> Make local projects and test them out
+#> Dockerize projects
+#> Get fresh ubuntu server
+#> Install Pre-reqs
+    #>install docker
+    #>install minikube
+    #>configure minikube to use docker
+    #>run projects inside minikube and test
+#>  Refine and evolve
+#>  Document and Submit
+
+
+Install Docker
+=====================================
+sudo su 
+
+
+sudo apt-get update
+sudo apt-get install -y \
+    apt-transport-https \
+    ca-certificates \
+    curl \
+    gnupg \
+    lsb-release -
+
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
+
+echo \
+  "deb [arch=amd64 signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/ubuntu \
+  $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+
+
+
+sudo apt-get update
+sudo apt-get install -y docker-ce docker-ce-cli containerd.io
+
+Post Installation
+-----------
+sudo usermod -aG docker $USER
+newgrp docker 
+
+
+Install minikube
+===================
+curl -LO https://storage.googleapis.com/minikube/releases/latest/minikube_latest_amd64.deb
+sudo dpkg -i minikube_latest_amd64.deb
+
+use minikube docker daemon instead
+---------------------------------
+minikube start
+minikube addons enable ingress
+minikube addons enable registry
+eval $(minikube docker-env)
+minikube dashboard
+
+

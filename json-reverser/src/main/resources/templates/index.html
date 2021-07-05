@@ -1,0 +1,54 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head> 
+    <title>Getting Started: Serving Web Content</title> 
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+    <table>
+        <tr>
+            <td>
+                <a onclick="fetchFromBackend();" href="#">This Link gets the message from backend Java application, which invokes internal k8s DNS</a>
+            </td>
+            <td id="reversed-message-backend">
+
+            </td>
+        </tr>
+
+        <tr>
+            <td>
+                <a onclick="fetchFromFrontend();"  href="#">This Link gets the message from from k8s ingress controller route via frontend JavaScript
+            </td>
+            <td id="reversed-message-frontend">
+
+            </td>
+        </tr>
+    </table>
+</body>
+</html>
+
+<script>
+
+
+    function fetchFromBackend(){
+        // Fetch from backend k8s dns mapping
+        fetch('/app/reverse')
+        .then(response => response.json())
+        .then(data => {
+            document.getElementById("reversed-message-backend").innerHTML = data.message;
+        });
+
+    }
+
+    function fetchFromFrontend(){
+        // Fetch from ingress controller
+        fetch('/message')
+        .then(response => response.json())
+        .then(data => {
+            document.getElementById("reversed-message-frontend").innerHTML = data.message.split('').reverse().join('');
+        });
+
+    }
+
+
+</script>

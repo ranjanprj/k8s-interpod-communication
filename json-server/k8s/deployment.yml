@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: json-server
+  namespace: signavio
+spec:
+  selector:
+    matchLabels:
+      app: json-server
+  template:
+    metadata:
+      labels:
+        app: json-server
+    spec:
+      containers:
+      - name: json-server
+        image: json-server
+        imagePullPolicy: IfNotPresent
+        securityContext:
+          privileged: false
+        ports:
+          - containerPort: 8080

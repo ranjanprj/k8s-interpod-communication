@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: json-reverser
+  namespace: signavio
+spec:
+  ports:
+  - port: 8080
+    name: http
+  type: ClusterIP
+  selector:
+    app: json-reverser

@@ -1,0 +1,17 @@
+apiVersion: networking.k8s.io/v1beta1
+kind: Ingress
+metadata:
+  name: json-reverser-ingress
+  namespace: signavio
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /$2
+spec:
+  rules:
+  - host: message.reverser
+    http:
+      paths:
+      - path: /app(/|$)(.*)
+        pathType: Prefix
+        backend:
+          serviceName: json-reverser
+          servicePort: 8080
